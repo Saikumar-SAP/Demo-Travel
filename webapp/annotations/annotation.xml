@@ -12,6 +12,7 @@
                     <Collection>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="TravelId"/>
+                            <PropertyValue Property="Label" String="{@i18n>travelLocal}"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
                         </Record>
                     </Collection>
@@ -19,6 +20,7 @@
                 <Annotation Term="UI.SelectionFields">
                     <Collection>
                         <PropertyPath>AgencyId</PropertyPath>
+                        <PropertyPath>TravelId</PropertyPath>
                     </Collection>
                 </Annotation>
             </Annotations>
