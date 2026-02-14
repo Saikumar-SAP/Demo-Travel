@@ -1,0 +1,44 @@
+specVersion: "4.0"
+metadata:
+  name: democonnect
+type: application
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertErrors: false
+        ui5:
+          path:
+            - /resources
+            - /test-resources
+          url: https://ui5.sap.com
+        backend:
+          - authenticationType: reentranceTicket
+            path: /sap
+            url: https://7a456f9d-5fc0-4e0c-b7a7-81e65d431356.abap.us10.hana.ondemand.com
+            destination: abap-cloud-sai-2f911d10trial-dev
+        bsp: "Fiori:"
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: dist
+        delay: 300
+    - name: fiori-tools-preview
+      afterMiddleware: fiori-tools-appreload
+      configuration:
+        flp:
+          theme: sap_horizon
+    - name: fiori-tools-servestatic
+      beforeMiddleware: fiori-tools-proxy
+      configuration:
+        paths:
+          - path: "/**/Fiori:"
+            src: dist
+          - path: /**/democonnect
+            src: dist
+resources:
+  configuration:
+    paths:
+      webapp: dist
